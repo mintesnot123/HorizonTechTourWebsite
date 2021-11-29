@@ -4,6 +4,7 @@ var signinResult = document.getElementById("signin-result");
 const BASE_URL = "http://localhost:3000";
 
 signInForm.addEventListener("submit", async function (e) {
+    console.log('somefdk')
     e.preventDefault();
 
     signinResult.style.display = "none";

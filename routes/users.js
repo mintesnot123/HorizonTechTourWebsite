@@ -1,4 +1,5 @@
 let User = require("../models/users").User;
+const Profile = require("../models/profile").Profile;
 let express = require("express");
 let router = express.Router();
 let bcrypt = require("bcryptjs");
@@ -97,7 +98,22 @@ router.post("/register", async (req, res) => {
                     password: encryptedPass,
                     role: "USER",
                 });
+
                 const user = await newUser.save();
+                const names = name.split(" ");
+
+                try {
+                    const userId = user._id.toString();
+                    let newProfile = new Profile({
+                        email: email,
+                        user: userId,
+                        firstname: names[0] || "",
+                        lastname: names[1] || "",
+                    });
+                    const profile = await newProfile.save();
+                } catch (error) {
+                    console.log("create profile error : ", error);
+                }
 
                 let token = auth.generateToken(user);
                 //name of the key:auth_token , value:token

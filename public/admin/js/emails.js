@@ -1,5 +1,5 @@
-async function getEmails() {
-    return await fetch("http://localhost:3000/emails")
+async function getEmails({ page, size }) {
+    return await fetch(`http://localhost:3000/emails?page=${page}&size=${size}`)
         .then((res) => res.json())
         .then((data) => data);
 }

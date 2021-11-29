@@ -27,7 +27,7 @@ let userSchema = new Schema({
         required: true,
         default: "USER",
         enum: ["USER", "ADMIN"],
-    },
+    },    
 });
 //Creating model
 let User = mongoose.model("User", userSchema, "users");

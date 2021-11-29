@@ -1,8 +1,9 @@
 let jwt = require("jsonwebtoken");
 let secret = "gew67dfgew"; //secret key
 //generate keys
-function generateToken(user) {
+function generateToken(user) {    
     let payload = {
+        id: user._id,
         email: user.email,
         password: user.password,
         role: user.role,
@@ -12,8 +13,8 @@ function generateToken(user) {
 
 //checking whether the token provided by user is correct one
 function checkToken(token, role) {
-    const payload = jwt.verify(token, secret);    
-    return payload.role === role;
+    const payload = jwt.verify(token, secret);
+    return { user: payload, state: payload.role === role };
 }
 
 module.exports = { generateToken, checkToken };

@@ -8,6 +8,8 @@ let cookieParser = require("cookie-parser");
 //let callbackRequestsRouter = require('./routes/callback-requests');
 let emailsRouter = require("./routes/emails");
 let usersRouter = require("./routes/users");
+let callbackRouter = require("./routes/callback-requests");
+let profileRouter = require("./routes/profile");
 //let Post = require('./models/posts').Post;
 let auth = require("./controllers/auth");
 
@@ -63,24 +65,32 @@ app.get("/profile", (req, res) => {
     res.render("profile");
 });
 
+app.get("/submited_messages", (req, res) => {
+    res.render("emails");
+});
+app.get("/callback-requests-page", (req, res) => {
+    res.render("callback-requests-page");
+});
+
 app.use("/users", usersRouter);
 app.use("/emails", emailsRouter);
+app.use("/callback-requests", callbackRouter);
+app.use("/api/profile", profileRouter);
 
 app.get("/admin", (req, res) => {
     /*to read the cookie */
     let token = req.cookies["auth_token"];
-    if (token && auth.checkToken(token, "ADMIN")) {
+    if (token && auth.checkToken(token, "ADMIN").state) {
         //token should not be empty!
         res.render("admin");
     } else {
         res.redirect("/login"); //redirecting sign-in page!
     }
 });
-
 app.get("/client", (req, res) => {
     /*to read the cookie */
     let token = req.cookies["auth_token"];
-    if (token && auth.checkToken(token, "USER")) {
+    if (token && auth.checkToken(token, "USER").state) {
         //token should not be empty!
         res.render("client");
     } else {

@@ -61,21 +61,21 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/map">
+              <a class="nav-link" href="/callback-requests-page">
                 <i class="ni ni-pin-3 text-primary"></i>
-                <span class="nav-link-text">Google</span>
+                <span class="nav-link-text">Callback Requests</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/profile">
+              <a class="nav-link active" href="/profile">
                 <i class="ni ni-single-02 text-yellow"></i>
                 <span class="nav-link-text">Profile</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/tables">
+              <a class="nav-link" href="/submited_messages">
                 <i class="ni ni-bullet-list-67 text-default"></i>
-                <span class="nav-link-text">Tables</span>
+                <span class="nav-link-text">Submitted Messages</span>
               </a>
             </li>
             <li class="nav-item">
@@ -308,7 +308,7 @@
                     <img alt="Image placeholder" src="/images/chief-strategy-officer.PNG">
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                    <span id="profile-name" class="mb-0 text-sm  font-weight-bold"></span>
                   </div>
                 </div>
               </a>
@@ -352,15 +352,15 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello Jesse</h1>
+            <h1 id="hello-message-by-name" class="display-2 text-white"></h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <a href="#!" class="btn btn-neutral">Edit profile</a>
+            <!-- <a href="#!" class="btn btn-neutral">Edit profile</a> -->
           </div>
         </div>
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--9">
       <div class="row">
         <div class="col-xl-4 order-xl-2">
           <div class="card card-profile">
@@ -400,17 +400,20 @@
                 </div>
               </div>
               <div class="text-center">
-                <h5 class="h3">
-                  Jessica Jones<span class="font-weight-light">, 27</span>
+                <h5 id="profile-display-name" class="h3">
+                  Jessica Jones<span class="font-weight-light"></span>
                 </h5>
-                <div class="h5 font-weight-300">
+                <div id="profile-display-phone-email" class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i>
+                </div>
+                <!-- <div id="profile-display-address" class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                </div> -->                
+                <div id="profile-display-address">
+                  <i class="ni education_hat mr-2"></i>
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                </div>
-                <div>
-                  <i class="ni education_hat mr-2"></i>University of Computer Science
+                  <i id="profile-display-aboutme" class="ni business_briefcase-24 mr-2"></i>
                 </div>
               </div>
             </div>
@@ -435,28 +438,28 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">Username</label>
-                        <input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">
+                        <label class="form-control-label" for="input-firstname">First Name</label>
+                        <input type="text" id="input-firstname" class="form-control" placeholder="First Name" value="">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control" placeholder="jesse@example.com">
+                        <label class="form-control-label" for="input-lastname">Last Name</label>
+                        <input type="text" id="input-lastname" class="form-control" placeholder="Last Name" value="">
                       </div>
-                    </div>
+                    </div>                    
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="Lucky">
+                        <label class="form-control-label" for="input-phone">Phone Number</label>
+                        <input type="number" id="input-phone" class="form-control" placeholder="Ex 0912345678" value="">
                       </div>
-                    </div>
+                    </div>                    
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Last name</label>
-                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control" placeholder="Email address" value="">
                       </div>
                     </div>
                   </div>
@@ -469,29 +472,29 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Address</label>
-                        <input id="input-address" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                        <input type="text" id="input-address" class="form-control" placeholder="Address" value="">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control" placeholder="City" value="New York">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
                         <label class="form-control-label" for="input-country">Country</label>
-                        <input type="text" id="input-country" class="form-control" placeholder="Country" value="United States">
+                        <input type="text" id="input-country" class="form-control" placeholder="Country" value="">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-country">Postal code</label>
-                        <input type="number" id="input-postal-code" class="form-control" placeholder="Postal code">
+                        <label class="form-control-label" for="input-region">Region</label>
+                        <input type="text" id="input-region" class="form-control" placeholder="Region" value="">
                       </div>
-                    </div>
+                    </div> 
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <input type="text" id="input-city" class="form-control" placeholder="City" value="">
+                      </div>
+                    </div>                  
                   </div>
                 </div>
                 <hr class="my-4" />
@@ -499,11 +502,18 @@
                 <h6 class="heading-small text-muted mb-4">About me</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label class="form-control-label">About Me</label>
-                    <textarea rows="4" class="form-control" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                    <label class="form-control-label" for="input-aboutme">About Me</label>
+                    <textarea rows="4" id="input-aboutme" class="form-control" placeholder="A few words about you ..."></textarea>
                   </div>
                 </div>
               </form>
+            </div>
+            <div class="card-footer">
+              <div class="row align-items-center">               
+                <div class="col-12 text-right">
+                  <a href="#!" id="edit-profile-btn" class="btn btn-sm btn-primary">Edit Profile</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -545,6 +555,7 @@
   <script src="/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
   <!-- Argon JS -->
   <script src="/js/argon.js?v=1.2.0"></script>
+  <script src="/admin/js/profile.js"></script>
 </body>
 
 </html>
