@@ -1,7 +1,8 @@
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
 var registorEmailResult = document.getElementById("registor-email-result");
-const BASE_URL = "http://localhost:3000";
+const {BASE_URL} = require("../../constants/api-constants");
+/* const BASE_URL = "http://localhost:3000"; */
 
 emailRequestForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -23,7 +24,7 @@ emailRequestForm.addEventListener("submit", async function (e) {
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         if (emailRegexp.test(email)) {
             try {
-                const response = await fetch(`${BASE_URL}/emails`, {
+                const response = await fetch(`${BASE_URL}emails`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -123,7 +124,7 @@ function showToast(content = "Unknown error") {
 let signInForm = document.querySelector(".sign-in-form");
 let signInBtn = document.getElementById("btn-signin");
 var signinResult = document.getElementById("signin-result");
-/* const BASE_URL = "http://localhost:3000"; */
+
 
 signInForm.addEventListener("submit", async function (e) {
     console.log('somefdk')
@@ -141,7 +142,7 @@ signInForm.addEventListener("submit", async function (e) {
     let password = document.getElementById("sign-in-password").value;
 
     try {
-        const response = await fetch(`${BASE_URL}/users/login`, {
+        const response = await fetch(`${BASE_URL}users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -180,7 +181,6 @@ signInForm.addEventListener("submit", async function (e) {
 
 let registerForm = document.querySelector(".register-form");
 var signupResult = document.getElementById("signup-result");
-/* const BASE_URL = "http://localhost:3000"; */
 
 registerForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -205,7 +205,7 @@ registerForm.addEventListener("submit", async function (e) {
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/users/register`, {
+        const response = await fetch(`${BASE_URL}users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
