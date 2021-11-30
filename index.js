@@ -38,7 +38,9 @@ db.on(
         app.use(express.static("public"));
         app.use(cookieParser()); //so that cookies are automatically generated for every request.
 
-        app.listen(3000, () => console.log("Listening 3000..."));
+        app.listen(process.env.PORT || 3000, () =>
+            console.log("Listening 3000...")
+        );
     }
 );
 db.once("open", function () {
@@ -137,5 +139,7 @@ then it will be redirected callback-requests.js*/
   });
 }); */
 
-    app.listen(3000, () => console.log("Listening 3000..."));
+    app.listen(process.env.PORT || 3000, () =>
+        console.log("Listening 3000...")
+    );
 });
