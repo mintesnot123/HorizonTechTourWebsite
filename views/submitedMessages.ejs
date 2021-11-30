@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Chudi Tour and Travel - Callback Requests</title>
+  <title>Chudi Tour and Travel - Submited Messages</title>
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.png">
   <!-- Fonts -->
@@ -54,13 +54,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/submited_messages">
+              <a class="nav-link active" href="/submited_messages">
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Submitted Messages</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/callback-requests-page">
+              <a class="nav-link" href="/callback-requests-page">
                 <i class="ni ni-pin-3 text-primary"></i>
                 <span class="nav-link-text">Callback Requests</span>
               </a>
@@ -344,12 +344,12 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Callbacks</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">Messages</h6>
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
                   <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Callbacks</li>
+                  <li class="breadcrumb-item active" aria-current="page">Messages</li>
                 </ol>
               </nav>
             </div>
@@ -368,7 +368,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Callback Requests</h3>
+              <h3 class="mb-0">Submited Messages</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
@@ -376,14 +376,14 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" class="sort" data-sort="name">Name</th>
-                    <th scope="col" class="sort" data-sort="budget">Phone Number</th>
                     <th scope="col" class="sort" data-sort="budget">Email</th>
                     <th scope="col" class="sort" data-sort="status">Date</th>
-                    <th scope="col">Interest</th>                    
+                    <th scope="col">Message</th>
+                    <!-- <th scope="col" class="sort" data-sort="completion">Completion</th> -->
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody class="list" id="callback-table-content">                 
+                <tbody class="list" id="email-table-content">                               
                 </tbody>
               </table>
             </div>
@@ -415,7 +415,7 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">
@@ -453,8 +453,8 @@
   <script src="/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
   <!-- Argon JS -->
   <script src="/js/argon.js?v=1.2.0"></script>
-  <script src="/admin/js/callback-requests-data.js"></script>
-  <script src="/admin/js/callback-requests.js"></script>
+  <script src="/admin/js/main2.js"></script>
+  <script src="/admin/js/emails.js"></script>
 </body>
 
 </html>

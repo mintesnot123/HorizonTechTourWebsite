@@ -1,7 +1,8 @@
 let signInForm = document.querySelector(".sign-in-form");
 let signInBtn = document.getElementById("btn-signin");
 var signinResult = document.getElementById("signin-result");
-const BASE_URL = "http://localhost:3000";
+const { BASE_URL } = require("../../constants/api-constants");
+/* const BASE_URL = "http://localhost:3000"; */
 
 signInForm.addEventListener("submit", async function (e) {
     console.log('somefdk')

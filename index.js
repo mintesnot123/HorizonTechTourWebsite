@@ -4,14 +4,12 @@ let mongoose = require("mongoose");
 let multer = require("multer");
 let cookieParser = require("cookie-parser");
 
-//let postsRouter = require('./routes/posts');
-//let callbackRequestsRouter = require('./routes/callback-requests');
+let auth = require("./controllers/auth");
+
 let emailsRouter = require("./routes/emails");
 let usersRouter = require("./routes/users");
 let callbackRouter = require("./routes/callback-requests");
 let profileRouter = require("./routes/profile");
-//let Post = require('./models/posts').Post;
-let auth = require("./controllers/auth");
 
 app.set("view engine", "ejs");
 
@@ -23,26 +21,23 @@ mongoose.connect(connectionString, {
 });
 
 const db = mongoose.connection;
-db.on(
-    "error",
-    /* console.error.bind(console, "connection error: ") */ (error) => {
-        console.log("error", error);
-        app.use(express.json());
+db.on("error", (error) => {
+    console.log("error", error);
+    app.use(express.json());
 
-        let imageStorage = multer.diskStorage({
-            destination: (req, file, cb) => cb(null, "public/images"),
-            filename: (req, file, cb) => cb(null, file.originalname),
-        });
-        //app.use(multer({dest: 'public/images'}).single('imageFile'));
-        app.use(multer({ storage: imageStorage }).single("imageFile"));
-        app.use(express.static("public"));
-        app.use(cookieParser()); //so that cookies are automatically generated for every request.
+    let imageStorage = multer.diskStorage({
+        destination: (req, file, cb) => cb(null, "public/images"),
+        filename: (req, file, cb) => cb(null, file.originalname),
+    });
+    //app.use(multer({dest: 'public/images'}).single('imageFile'));
+    app.use(multer({ storage: imageStorage }).single("imageFile"));
+    app.use(express.static("public"));
+    app.use(cookieParser()); //so that cookies are automatically generated for every request.
 
-        app.listen(process.env.PORT || 3000, () =>
-            console.log("Listening 3000...")
-        );
-    }
-);
+    app.listen(process.env.PORT || 3000, () =>
+        console.log("Listening 3000...")
+    );
+});
 db.once("open", function () {
     console.log("Connected successfully");
     app.use(express.json());
@@ -89,7 +84,7 @@ db.once("open", function () {
     });
 
     app.get("/submited_messages", (req, res) => {
-        res.render("emails");
+        res.render("submitedMessages");
     });
     app.get("/callback-requests-page", (req, res) => {
         res.render("callback-requests-page");
@@ -105,9 +100,9 @@ db.once("open", function () {
         let token = req.cookies["auth_token"];
         if (token && auth.checkToken(token, "ADMIN").state) {
             //token should not be empty!
-            res.render("admin");
+            res.render("dashboard");
         } else {
-            res.redirect("/login"); //redirecting sign-in page!
+            res.redirect("/"); //redirecting sign-in page!
         }
     });
     app.get("/client", (req, res) => {

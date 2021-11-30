@@ -1,18 +1,3 @@
-<!--
-=========================================================
-* Argon Dashboard - v1.2.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-
-
-* Copyright  Creative Tim (http://www.creative-tim.com)
-* Coded by www.creative-tim.com
-
-
-
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Chudi Tour and Travel">
   <meta name="author" content="Creative Tim">
-  <title>Chudi Tour and Travel - Login</title>
+  <title>Chudi Tour and Travel - Profile</title>
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.png">
   <!-- Fonts -->
@@ -34,15 +19,23 @@
 </head>
 
 <body>
+  <!-- Preloader -->
+  <div class="spinner-wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+  </div>
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img src="images/logo.png" class="navbar-brand-img" alt="...">
+        <a class="navbar-brand" href="javascript:void(0)"> 
+          <img src="images/logo-black.png" class="navbar-brand-img" alt="...">     
         </a>
-      </div>
+      </div> 
       <div class="navbar-inner">
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
@@ -52,18 +45,6 @@
               <a class="nav-link" href="/dashboard">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/icons">
-                <i class="ni ni-planet text-orange"></i>
-                <span class="nav-link-text">Icons</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/callback-requests-page">
-                <i class="ni ni-pin-3 text-primary"></i>
-                <span class="nav-link-text">Callback Requests</span>
               </a>
             </li>
             <li class="nav-item">
@@ -79,6 +60,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/callback-requests-page">
+                <i class="ni ni-pin-3 text-primary"></i>
+                <span class="nav-link-text">Callback Requests</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/login">
                 <i class="ni ni-key-25 text-info"></i>
                 <span class="nav-link-text">Login</span>
@@ -89,7 +76,13 @@
                 <i class="ni ni-circle-08 text-pink"></i>
                 <span class="nav-link-text">Register</span>
               </a>
-            </li>            
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/icons">
+                <i class="ni ni-planet text-orange"></i>
+                <span class="nav-link-text">Icons</span>
+              </a>
+            </li>         
           </ul>
           <!-- Divider -->
           <hr class="my-3">
@@ -101,7 +94,7 @@
                 <span class="nav-link-text">Logout</span>
               </a>
             </li>
-          </ul>
+          </ul>          
         </div>
       </div>
     </div>

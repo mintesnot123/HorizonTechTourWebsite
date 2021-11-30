@@ -82,7 +82,9 @@ async function addCallbackRequests() {
 
 async function addProfile() {
     const newProfile = await getProfile();
-    profileData = newProfile.results.profile;      
-    document.getElementById("profile-name").innerText = `${profileData.firstname} ${profileData.lastname}`;    
-    console.log('profileData', profileData)
+    profileData = newProfile.results.profile;
+    document.getElementById(
+        "profile-name"
+    ).innerText = `${profileData.firstname} ${profileData.lastname}`;
+    console.log("profileData", profileData);
 }
