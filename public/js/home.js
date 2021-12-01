@@ -1,5 +1,5 @@
+const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 //const BASE_URL = "http://localhost:3000";
-const BASE_URL = "https://chuditourandtravel.herokuapp.com/";
 
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
@@ -11,8 +11,6 @@ var signinResult = document.getElementById("signin-result");
 
 let registerForm = document.querySelector(".register-form");
 var signupResult = document.getElementById("signup-result");
-
-
 
 emailRequestForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -114,7 +112,6 @@ emailRequestForm.addEventListener("submit", async function (e) {
 });
 
 signInForm.addEventListener("submit", async function (e) {
-    console.log("somefdk", constants);
     e.preventDefault();
 
     signinResult.style.display = "none";
