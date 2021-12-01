@@ -1774,8 +1774,8 @@ input[type="checkbox"] {
 a.back-to-top {
     position: fixed;
     z-index: 999;
-    right: 0.75rem;
-    bottom: 0.75rem;
+    right: 2rem;
+    bottom: 6rem;
     display: none;
     width: 2.625rem;
     height: 2.625rem;
@@ -2684,7 +2684,6 @@ a:hover.back-to-top {
     padding: 0.3rem 0rem;
 }
 
-
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
@@ -2695,8 +2694,8 @@ a:hover.back-to-top {
     box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.1);
     border-radius: 18px;
     border-bottom: 5px solid #fff;
-  }
-  .services .icon-box .icon {
+}
+.services .icon-box .icon {
     width: 64px;
     height: 64px;
     background: #009961;
@@ -2707,56 +2706,55 @@ a:hover.back-to-top {
     margin-bottom: 20px;
     transition: ease-in-out 0.3s;
     color: #fff;
-  }
-  .services .icon-box .icon i {
+}
+.services .icon-box .icon i {
     font-size: 28px;
-  }
-  .services .icon-box h4 {
+}
+.services .icon-box h4 {
     font-weight: 700;
     margin-bottom: 15px;
     font-size: 24px;
-  }
-  .services .icon-box h4 a {
+}
+.services .icon-box h4 a {
     color: #282828;
     transition: ease-in-out 0.3s;
-  }
-  .services .icon-box p {
+}
+.services .icon-box p {
     line-height: 24px;
     font-size: 14px;
     margin-bottom: 0;
-  }
-  .services .icon-box:hover {
+}
+.services .icon-box:hover {
     transform: translateY(-10px);
     border-color: #009961;
-  }
-  .services .icon-box:hover h4 a {
+}
+.services .icon-box:hover h4 a {
     color: #009961;
-  }
+}
 
-
-  /*--------------------------------------------------------------
+/*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
 section {
     padding: 80px 0;
     overflow: hidden;
-  }
-  
-  .section-bg {
+}
+
+.section-bg {
     background-color: #8fffd6;
-  }
-  
-  .section-title {
+}
+
+.section-title {
     padding-bottom: 30px;
-  }
-  .section-title h2 {
+}
+.section-title h2 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
     padding-bottom: 20px;
     position: relative;
-  }
-  .section-title h2::after {
+}
+.section-title h2::after {
     content: "";
     position: absolute;
     display: block;
@@ -2765,9 +2763,9 @@ section {
     background: #009961;
     bottom: 0;
     left: 0;
-  }
-  .section-title p {
+}
+.section-title p {
     margin-bottom: 0;
     color: #777777;
     font-size: 15px;
-  }
+}
