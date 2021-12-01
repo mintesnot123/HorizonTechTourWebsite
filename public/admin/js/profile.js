@@ -2,7 +2,8 @@ let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
 var registorEmailResult = document.getElementById("registor-email-result");
 var editProfileBtn = document.getElementById("edit-profile-btn");
-const BASE_URL = "http://localhost:3000";
+//const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 let profile = null;
 const profileFields = [

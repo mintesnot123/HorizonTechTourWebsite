@@ -51,13 +51,12 @@ db.once("open", function () {
     app.use(express.static("public"));
     app.use(cookieParser()); //so that cookies are automatically generated for every request.
 
-    app.get("/terms-conditions", (req, res) => {
-        res.render("terms-conditions");
-    });
-
     /* app.get("/login", (req, res) => {
     res.render("login");
 }); */
+    app.get("/register", (req, res) => {
+        res.render("register");
+    });
 
     app.get("/chatbox", (req, res) => {
         res.render("chatbox");
@@ -71,32 +70,14 @@ db.once("open", function () {
         res.render("login2");
     });
 
-    app.get("/register", (req, res) => {
-        res.render("register");
-    });
-
-    app.get("/dashboard", (req, res) => {
-        res.render("dashboard");
-    });
-
-    app.get("/profile", (req, res) => {
-        res.render("profile");
-    });
-
-    app.get("/submited_messages", (req, res) => {
-        res.render("submitedMessages");
-    });
-    app.get("/callback-requests-page", (req, res) => {
-        res.render("callback-requests-page");
-    });
-
+    // api routes
     app.use("/users", usersRouter);
     app.use("/emails", emailsRouter);
     app.use("/callback-requests", callbackRouter);
     app.use("/api/profile", profileRouter);
 
+    // page routes
     app.get("/admin", (req, res) => {
-        /*to read the cookie */
         let token = req.cookies["auth_token"];
         if (token && auth.checkToken(token, "ADMIN").state) {
             //token should not be empty!
@@ -106,14 +87,61 @@ db.once("open", function () {
         }
     });
     app.get("/client", (req, res) => {
-        /*to read the cookie */
         let token = req.cookies["auth_token"];
         if (token && auth.checkToken(token, "USER").state) {
             //token should not be empty!
             res.render("client");
         } else {
-            res.redirect("/login"); //redirecting sign-in page!
+            res.redirect("/"); //redirecting sign-in page!
         }
+    });
+
+    app.get("/dashboard", (req, res) => {
+        let token = req.cookies["auth_token"];
+        if (token && auth.checkToken(token, "ADMIN").state) {
+            //token should not be empty!
+            res.render("dashboard");
+        } else if (token && auth.checkToken(token, "USER").state) {
+            //token should not be empty!
+            res.render("client");
+        } else {
+            res.redirect("/"); //redirecting sign-in page!
+        }
+    });
+    app.get("/profile", (req, res) => {
+        let token = req.cookies["auth_token"];
+        if (token && auth.checkToken(token, "ADMIN").state) {
+            //token should not be empty!
+            res.render("profile");
+        } else if (token && auth.checkToken(token, "USER").state) {
+            //token should not be empty!
+            res.render("clientProfile");
+        } else {
+            res.redirect("/"); //redirecting sign-in page!
+        }
+    });
+
+    app.get("/submited_messages", (req, res) => {
+        let token = req.cookies["auth_token"];
+        if (token && auth.checkToken(token, "ADMIN").state) {
+            //token should not be empty!
+            res.render("submitedMessages");
+        } else {
+            res.redirect("/"); //redirecting sign-in page!
+        }
+    });
+    app.get("/callback-requests-page", (req, res) => {
+        let token = req.cookies["auth_token"];
+        if (token && auth.checkToken(token, "ADMIN").state) {
+            //token should not be empty!
+            res.render("callback-requests-page");
+        } else {
+            res.redirect("/"); //redirecting sign-in page!
+        }
+    });
+
+    app.get("/terms-conditions", (req, res) => {
+        res.render("terms-conditions");
     });
 
     /* app.use("/posts", postsRouter);

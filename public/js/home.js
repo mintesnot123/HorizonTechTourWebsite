@@ -1,5 +1,5 @@
-const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 //const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
@@ -32,7 +32,7 @@ emailRequestForm.addEventListener("submit", async function (e) {
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         if (emailRegexp.test(email)) {
             try {
-                const response = await fetch(`${BASE_URL}emails`, {
+                const response = await fetch(`${BASE_URL}/emails`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
