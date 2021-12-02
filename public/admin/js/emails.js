@@ -1,5 +1,5 @@
 async function getEmails({ page, size }) {
-    return await fetch(`http://localhost:3000/emails?page=${page}&size=${size}`)
+    return await fetch(`https://chuditourandtravel.herokuapp.com/emails?page=${page}&size=${size}`)
         .then((res) => res.json())
         .then((data) => data);
 }
@@ -11,7 +11,7 @@ let emailsBlock = document.querySelector("#v-pills-mails");
 emailsBlock.addEventListener("click", function (e) {
     if (e.target.classList.contains("btn-remove")) {
         let id = e.target.parentNode.parentNode.querySelector(".id").value; //request.id
-        fetch("http://localhost:3000/emails/" + id, {
+        fetch("https://chuditourandtravel.herokuapp.com/emails/" + id, {
             method: "DELETE",
         })
             .then((res) => res.text())
