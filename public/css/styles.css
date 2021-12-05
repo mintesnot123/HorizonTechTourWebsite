@@ -2583,12 +2583,15 @@ a:hover.back-to-top {
     background-color: #333; /* Black background color */
     color: #fff; /* White text color */
     text-align: center; /* Centered text */
-    border-radius: 2px; /* Rounded borders */
-    padding: 16px; /* Padding */
+    border-radius: 4px; /* Rounded borders */
+    padding-left: 16px; /* Padding */
+    padding-right: 16px; /* Padding */
+    padding-top: 1px; /* Padding */
+    padding-bottom: 1px; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    left: 50%; /* Center the snackbar */
-    bottom: 30px; /* 30px from the bottom */
+    top: 80px; /* Center the snackbar */
+    right: 30px; /* 30px from the bottom */
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -2603,44 +2606,44 @@ a:hover.back-to-top {
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {
-        bottom: 0;
+        top: 0;
         opacity: 0;
     }
     to {
-        bottom: 30px;
+        top: 80px;
         opacity: 1;
     }
 }
 
 @keyframes fadein {
     from {
-        bottom: 0;
+        top: 0;
         opacity: 0;
     }
     to {
-        bottom: 30px;
+        top: 80px;
         opacity: 1;
     }
 }
 
 @-webkit-keyframes fadeout {
     from {
-        bottom: 30px;
+        top: 80px;
         opacity: 1;
     }
     to {
-        bottom: 0;
+        top: 0;
         opacity: 0;
     }
 }
 
 @keyframes fadeout {
     from {
-        bottom: 30px;
+        top: 80px;
         opacity: 1;
     }
     to {
-        bottom: 0;
+        top: 0;
         opacity: 0;
     }
 }

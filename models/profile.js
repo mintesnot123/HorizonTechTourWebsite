@@ -42,6 +42,9 @@ let profileSchema = new Schema(
         aboutme: {
             type: String,
         },
+        /* imageUrl: {
+            type: String,
+        }, */
     },
     { timestamps: true }
 );

@@ -51,7 +51,7 @@ async function addEmails() {
 
 async function addCallbackRequests() {
     let callbackRequest = await getCallbackRequests({ page: 0, size: 5 });
-
+    console.log("some one", callbackRequest);
     let emailsBlock = document.querySelector("#callback-requests-table");
     emailsBlock.innerHTML = "";
 

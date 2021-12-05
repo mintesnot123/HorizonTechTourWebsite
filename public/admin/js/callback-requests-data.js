@@ -1,27 +1,38 @@
 let currentPage = 0;
 let numPages = 1;
 
+let currentDisplayPage = 1;
+let currentDisplayBlock = 0;
+
 //This event happens when the object document is completely loaded.
 document.addEventListener("DOMContentLoaded", function () {
-    addCallbackRequests();
+    addTableData();
 });
 
 //---
-async function addCallbackRequests() {
+async function addTableData() {
+    let emailsBlock = document.querySelector("#callback-table-content");
+    let tableLoader = document.querySelector("#table-loader");
+
+    emailsBlock.innerHTML = "";
+    tableLoader.innerHTML = `    
+      <div class="d-flex justify-content-center align-items-center" style="height: 300px;width: 100%">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>    
+    `;
+
     let callbackRequest = await getCallbackRequests({
-        page: currentPage,
+        page: currentDisplayPage - 1,
         size: 6,
     });
 
+    console.log("callbackRequest", callbackRequest);
     numPages = callbackRequest.results.callbackRequest.totalPages;
+    displayTablePagination();
 
-    //emails: we have an array of all emails stored in the DB.
-    let emailsBlock = document.querySelector("#callback-table-content");
-    /*we have to be sure that every time we work with the emailsBlock,
-     this div is empty without any requests*/
-    emailsBlock.innerHTML = "";
-
-    //let i = 1; //order number
+    tableLoader.innerHTML = "";
 
     callbackRequest.results.callbackRequest.docs.forEach((emailRequest) => {
         let emailHTML = `
@@ -62,17 +73,7 @@ async function addCallbackRequests() {
                     </td>
                   </tr> 
         `;
-        /* let emailHTML = `
-<article class="d-flex justify-content-between align-items-center article-inline">
-    <div class="num w5">${i++}</div>
-    <input class="id" type="hidden" value="${emailRequest.id}">
-    <div class="name w30">${emailRequest.name}</div>
-    <div class="email w30">${emailRequest.email}</div>
-    <div class="date w30">${emailRequest.date}</div>
-    <div class="remove w5"><button class="btn btn-link btn-remove">X</button></div>
-    <div class="text w100">${emailRequest.text}</div>
-</article>`; */
-                
+
         emailsBlock.insertAdjacentHTML("beforeend", emailHTML);
     });
 }

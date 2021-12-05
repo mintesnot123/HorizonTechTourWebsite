@@ -9,6 +9,7 @@
   <title>Chudi Tour and Travel - Profile</title>
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.png">
+  <link href="/css/bootstrap.css" rel="stylesheet">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -354,7 +355,7 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--9">
+    <div class="container-fluid mt--9 d-flex flex-column min-vh-100">
       <div class="row">
         <div class="col-xl-4 order-xl-2">
           <div class="card card-profile">
@@ -513,7 +514,7 @@
         </div>
       </div>
       <!-- Footer -->
-      <footer class="footer pt-0">
+      <footer class="footer pt-0 mt-auto">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-6">
             <div class="copyright text-center  text-lg-left  text-muted">
@@ -540,6 +541,11 @@
       </footer>
     </div>
   </div>
+
+   <!-- toast conteiner-->
+   <div id="toast-conteiner">    
+  </div>
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
@@ -550,6 +556,7 @@
   <!-- Argon JS -->
   <script src="/js/argon.js?v=1.2.0"></script>
   <script src="/admin/js/profile.js"></script>
+  <script src="/admin/js/profile-data.js"></script>
   <script src="/admin/js/scripts.js"></script>
 </body>
 

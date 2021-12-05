@@ -1,9 +1,12 @@
-//const BASE_URL = "http://localhost:3000";
-const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+const BASE_URL = "http://localhost:3000";
+//const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
 var registorEmailResult = document.getElementById("registor-email-result");
+
+let callMeForm = document.querySelector(".call-me-form");
+var callMeResult = document.getElementById("call-me-result");
 
 let signInForm = document.querySelector(".sign-in-form");
 let signInBtn = document.getElementById("btn-signin");
@@ -14,7 +17,6 @@ var signupResult = document.getElementById("signup-result");
 
 emailRequestForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-
     registorEmailResult.style.display = "none";
     $("#registor-email-result").html("");
     $("#btn-registor-email")
@@ -49,7 +51,7 @@ emailRequestForm.addEventListener("submit", async function (e) {
                 if (result.error) {
                     registorEmailResult.style.display = "block";
                     $("#registor-email-result").html(result.message);
-                    showToast(result.message);
+                    showToast(result.message, "danger");
                     $("#btn-registor-email")
                         .html("Submit Message")
                         .attr("disabled", false);
@@ -57,7 +59,7 @@ emailRequestForm.addEventListener("submit", async function (e) {
                         window.location.href = result.redirectURL;
                     }
                 } else {
-                    showToast("Message submited succesfully!");
+                    showToast("Message submited succesfully!", "success");
                     document.querySelector("#cname").value = "";
                     document.querySelector("#cemail").value = "";
                     document.querySelector("#cmessage").value = "";
@@ -74,13 +76,15 @@ emailRequestForm.addEventListener("submit", async function (e) {
                     error.message ? error.message : "something went wrong"
                 );
                 showToast(
-                    error.message ? error.message : "something went wrong"
+                    error.message ? error.message : "something went wrong",
+                    "danger"
                 );
                 $("#btn-registor-email")
                     .html("Submit Message")
                     .attr("disabled", false);
             }
         } else {
+            showToast("Enter valid email!", "warning");
             registorEmailResult.style.display = "block";
             $("#registor-email-result").html("Enter valid email!");
             $("#btn-registor-email")
@@ -88,27 +92,93 @@ emailRequestForm.addEventListener("submit", async function (e) {
                 .attr("disabled", false);
         }
     } else {
+        showToast("Email and name are required!", "warning");
         registorEmailResult.style.display = "block";
         $("#registor-email-result").html("Email and name are required!");
         $("#btn-registor-email").html("Submit Message").attr("disabled", false);
     }
-    /* .then((res) => { */
-    /* var myToast = new bootstrap.Toast(element);
-            myToast.show(); */
+});
 
-    /* console.log("add email result", res);
-            if (res.error) {
-                showToast(res.message);
-            } else {
-                showToast("email added succesfully!");
-                document.querySelector("#cname").value = "";
-                document.querySelector("#cemail").value = "";
-                document.querySelector("#cmessage").value = "";
+callMeForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    callMeResult.style.display = "none";
+    $("#call-me-result").html("");
+    $("#btn-call-me")
+        .html(
+            '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Submiting...'
+        )
+        .attr("disabled", true);
+
+    let name = document.querySelector("#lname").value;
+    let phoneNumber = document.querySelector("#lphone").value;
+    let email = document.querySelector("#lemail").value;
+    let interest = document.querySelector("#lselect").value;
+
+    if (phoneNumber && name && email) {
+        const emailRegexp =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        if (emailRegexp.test(email)) {
+            try {
+                const response = await fetch(`${BASE_URL}/callback-requests`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        email: email,
+                        interest: interest,
+                    }),
+                });
+                const result = await response.json();
+                console.log("add call me result: ", result);
+
+                if (result.error) {
+                    callMeResult.style.display = "block";
+                    $("#call-me-result").html(result.message);
+                    showToast(result.message, "danger");
+                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
+                    if (result.redirectURL) {
+                        window.location.href = result.redirectURL;
+                    }
+                } else {
+                    showToast(
+                        "Call me request submited succesfully!",
+                        "success"
+                    );
+                    document.querySelector("#lname").value = "";
+                    document.querySelector("#lphone").value = "";
+                    document.querySelector("#lemail").value = "";
+                    document.querySelector("#lselect").value = "";
+                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
+                    if (result.redirectURL) {
+                        window.location.href = result.redirectURL;
+                    }
+                }
+            } catch (error) {
+                callMeResult.style.display = "block";
+                $("#call-me-result").html(
+                    error.message ? error.message : "something went wrong"
+                );
+                showToast(
+                    error.message ? error.message : "something went wrong",
+                    "danger"
+                );
+                $("#btn-call-me").html("CALL ME").attr("disabled", false);
             }
-        })
-        .catch((error) => {
-            showToast(error.message ? error.message : "something went wrong");
-        }); */
+        } else {
+            showToast("Enter valid email!", "warning");
+            callMeResult.style.display = "block";
+            $("#call-me-result").html("Enter valid email!");
+            $("#btn-call-me").html("CALL ME").attr("disabled", false);
+        }
+    } else {
+        showToast("Phone, Email and name are required!", "warning");
+        callMeResult.style.display = "block";
+        $("#call-me-result").html("Phone, Email and name are required!");
+        $("#btn-call-me").html("CALL ME").attr("disabled", false);
+    }
 });
 
 signInForm.addEventListener("submit", async function (e) {
@@ -132,8 +202,6 @@ signInForm.addEventListener("submit", async function (e) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ email, password }),
-            //JS understands that the two keys email and password have to be created as their values
-            //JS'll set the values of the variable email and the variable password
         });
         const result = await response.json();
         console.log("login result: ", result);
@@ -141,13 +209,13 @@ signInForm.addEventListener("submit", async function (e) {
         if (result.error) {
             signinResult.style.display = "block";
             $("#signin-result").html(result.message);
-            showToast(result.message);
+            showToast(result.message, "danger");
             $("#btn-signin").html("Sign in").attr("disabled", false);
             if (result.redirectURL) {
                 window.location.href = result.redirectURL;
             }
         } else {
-            showToast("Logged in succesfully!");
+            showToast("Logged in succesfully!", "success");
             $("#btn-signin").html("Sign in").attr("disabled", false);
             if (result.redirectURL) {
                 window.location.href = result.redirectURL;
@@ -158,7 +226,10 @@ signInForm.addEventListener("submit", async function (e) {
         $("#signin-result").html(
             error.message ? error.message : "something went wrong"
         );
-        showToast(error.message ? error.message : "something went wrong");
+        showToast(
+            error.message ? error.message : "something went wrong",
+            "danger"
+        );
         $("#btn-signin").html("Sign in").attr("disabled", false);
     }
 });
@@ -179,6 +250,7 @@ registerForm.addEventListener("submit", async function (e) {
     let password = document.getElementById("register-password").value;
 
     if (password.length < 8) {
+        showToast("Password must be greater than 8 characters!", "warning");
         $("#btn-signup").html("Create account").attr("disabled", false);
         signupResult.style.display = "block";
         $("#signup-result").html("Password must be greater than 8 characters!");
@@ -199,13 +271,13 @@ registerForm.addEventListener("submit", async function (e) {
         if (result.error) {
             signupResult.style.display = "block";
             $("#signup-result").html(result.message);
-            showToast(result.message);
+            showToast(result.message, "danger");
             $("#btn-signup").html("Register").attr("disabled", false);
             if (result.redirectURL) {
                 window.location.href = result.redirectURL;
             }
         } else {
-            showToast("Register user succesfully!");
+            showToast("Register user succesfully!", "success");
             $("#btn-signup").html("Register").attr("disabled", false);
             if (result.redirectURL) {
                 window.location.href = result.redirectURL;
@@ -217,24 +289,68 @@ registerForm.addEventListener("submit", async function (e) {
         $("#signup-result").html(
             error.message ? error.message : "something went wrong"
         );
-        showToast(error.message ? error.message : "something went wrong");
+        showToast(
+            error.message ? error.message : "something went wrong",
+            "danger"
+        );
         $("#btn-signup").html("Register").attr("disabled", false);
     }
 });
 
-function showToast(content = "Unknown error") {
-    //You can change the default value
-    // Get the snackbar DIV
-    var x = document.getElementById("snackbar");
+function showToast(content = "Unknown error", state) {
+    var toastConteiner = document.getElementById("toast-conteiner");
 
-    //Change the text (not mandatory, but I think you might be willing to do it)
-    x.innerHTML = content;
+    if (state === "success") {
+        toastConteiner.innerHTML = `
+        <div id="snackbar" class="toast align-items-center text-white bg-success border-0" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${content}
+                </div>        
+            </div>
+        </div>
+    `;
+    } else if (state === "danger") {
+        toastConteiner.innerHTML = `
+        <div id="snackbar" class="toast align-items-center text-white bg-danger border-0" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${content}
+                </div>        
+            </div>
+        </div>
+    `;
+    } else if (state === "warning") {
+        toastConteiner.innerHTML = `
+        <div id="snackbar" class="toast align-items-center text-white bg-warning border-0" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${content}
+                </div>        
+            </div>
+        </div>
+    `;
+    } else if (state === "info") {
+        toastConteiner.innerHTML = `
+        <div id="snackbar" class="toast align-items-center text-white bg-info border-0" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${content}
+                </div>        
+            </div>
+        </div>
+    `;
+    } else {
+        toastConteiner.innerHTML = `
+        <div id="snackbar" class="toast align-items-center text-white bg-primary border-0" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${content}
+                </div>        
+            </div>
+        </div>
+    `;
+    }
 
-    // Add the "show" class to DIV
-    x.className = "show";
-
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function () {
-        x.className = x.className.replace("show", "");
-    }, 9000);
+    $(".toast").toast("show");
 }

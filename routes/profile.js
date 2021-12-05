@@ -99,6 +99,7 @@ router.post("/", checkAuthAnyUser, async (req, res) => {
         "region",
         "City",
         "aboutme",
+        /* "imageUrl", */
     ];
     let state = true;
     Object.keys(reqBody).map((field) => {
@@ -106,9 +107,24 @@ router.post("/", checkAuthAnyUser, async (req, res) => {
             state = false;
         }
     });
+
+    /* let imgPath;
+    if (reqBody.imageUrl) {
+        imgPath = reqBody.imageUrl;
+    } else {
+        imgPath = req.file.path.substring(
+            req.file.path.indexOf(path.sep),
+            req.file.path.length
+        );
+    } */
+
     if (state) {
         try {
-            let newProfile = new Profile({ ...reqBody, user: req.user.id });
+            let newProfile = new Profile({
+                ...reqBody,
+                /* ...(imgPath && { imageUrl: imgPath }), */
+                user: req.user.id,
+            });
             const profile = await newProfile.save();
 
             res.status(200).json(
@@ -139,6 +155,7 @@ router.put("/", checkAuthAnyUser, async (req, res) => {
         "region",
         "city",
         "aboutme",
+        /* "imageUrl", */
     ];
     let state = true;
     Object.keys(reqBody).map((field) => {
@@ -146,10 +163,24 @@ router.put("/", checkAuthAnyUser, async (req, res) => {
             state = false;
         }
     });
+
+    /* let imgPath;
+    if (reqBody.imageUrl) {
+        imgPath = reqBody.imageUrl;
+    } else {
+        imgPath = req.file.path.substring(
+            req.file.path.indexOf(path.sep),
+            req.file.path.length
+        );
+    } */
+
     if (state) {
         try {
             const filter = { user: req.user.id };
-            const update = reqBody;
+            const update = {
+                ...reqBody,
+                /*  ...(imgPath && { imageUrl: imgPath }), */
+            };
 
             let updatedProfile = await Profile.findOneAndUpdate(
                 filter,

@@ -1,36 +1,28 @@
-async function getProfile() {
+async function getEmails({ page, size }) {
     const BASE_URL = "http://localhost:3000";
     //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
-    return await fetch(`${BASE_URL}/api/profile`)
+    return await fetch(`${BASE_URL}/emails?page=${page}&size=${size}`)
         .then((res) => res.json())
         .catch((error) => {
-            console.log("Profile load error :", error);
-            showToast("Profile load error. check your network!", "danger");
+            console.log("Messages load error :", error);
+            showToast("Messages load error. check your network!", "danger");
         });
 }
 
-async function updateProfile(newProfile) {
-    const BASE_URL = "http://localhost:3000";
-    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
-    return await fetch(`${BASE_URL}/api/profile`, {
-        method: "PUT",
-        headers: {
-            "content-type": "application/json",
-        },
-        body: JSON.stringify({
-            ...newProfile,
-        }),
-        /* body: newProfile, */
-    })
-        .then((res) => {
-            showToast("Profile updated successfully!", "success");
-            return res.json();
+//Deleting email by clicking remove button (X)
+let emailsBlock = document.querySelector("#v-pills-mails");
+
+//event delegation
+emailsBlock.addEventListener("click", function (e) {
+    if (e.target.classList.contains("btn-remove")) {
+        let id = e.target.parentNode.parentNode.querySelector(".id").value; //request.id
+        fetch(`${BASE_URL}/emails/` + id, {
+            method: "DELETE",
         })
-        .catch((error) => {
-            console.log("Profile update error :", error);
-            showToast("Profile update error. check your network!", "danger");
-        });
-}
+            .then((res) => res.text())
+            .then(() => window.history.go());
+    }
+});
 
 function showToast(content = "Unknown error", state) {
     var toastConteiner = document.getElementById("toast-conteiner");

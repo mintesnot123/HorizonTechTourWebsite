@@ -1,31 +1,35 @@
 let currentPage = 0;
 let numPages = 1;
 
+let currentDisplayPage = 1;
+let currentDisplayBlock = 0;
+
 //This event happens when the object document is completely loaded.
 document.addEventListener("DOMContentLoaded", function () {
     //When the page is loading, these functions will be called.
-    console.log("loadeded");
-    addEmails();
+    addTableData();
 });
 
-function changeLables(currentPage) {
-    document.getElementById("currentoption").text = selectedrun;
-}
-
 //---
-async function addEmails() {
-    let emails = await getEmails({ page: currentPage, size: 6 });
+async function addTableData() {
+    let emailsBlock = document.querySelector("#email-table-content");
+    let tableLoader = document.querySelector("#table-loader");
+
+    emailsBlock.innerHTML = "";
+    tableLoader.innerHTML = `    
+      <div class="d-flex justify-content-center align-items-center" style="height: 300px;width: 100%">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>    
+    `;
+
+    let emails = await getEmails({ page: currentDisplayPage - 1, size: 6 });
     console.log("emails", emails);
     numPages = emails.results.emails.totalPages;
+    displayTablePagination();
 
-    //emails: we have an array of all emails stored in the DB.
-    let emailsBlock = document.querySelector("#email-table-content");
-    /*we have to be sure that every time we work with the emailsBlock,
-     this div is empty without any requests*/
-    emailsBlock.innerHTML = "";
-
-    //let i = 1; //order number
-
+    tableLoader.innerHTML = "";
     emails.results.emails.docs.forEach((emailRequest) => {
         let emailHTML = `
                   <tr >
@@ -49,7 +53,7 @@ async function addEmails() {
                     </td>
                     <td class="budget">                        
                     ${
-                        emailRequest.text.length > 50
+                        emailRequest.text && emailRequest.text.length > 50
                             ? `${emailRequest.text.substring(0, 50)}...`
                             : emailRequest.text
                     }
@@ -68,18 +72,7 @@ async function addEmails() {
                     </td>
                   </tr> 
         `;
-        /* let emailHTML = `
-<article class="d-flex justify-content-between align-items-center article-inline">
-    <div class="num w5">${i++}</div>
-    <input class="id" type="hidden" value="${emailRequest.id}">
-    <div class="name w30">${emailRequest.name}</div>
-    <div class="email w30">${emailRequest.email}</div>
-    <div class="date w30">${emailRequest.date}</div>
-    <div class="remove w5"><button class="btn btn-link btn-remove">X</button></div>
-    <div class="text w100">${emailRequest.text}</div>
-</article>`; */
-        //Let's add some articles
-        console.log("emailHTML", emailHTML);
+
         emailsBlock.insertAdjacentHTML("beforeend", emailHTML);
     });
 }
