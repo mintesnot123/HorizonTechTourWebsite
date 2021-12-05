@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:3000";
-//const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+//const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");

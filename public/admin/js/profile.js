@@ -1,6 +1,6 @@
 async function getProfile() {
-    const BASE_URL = "http://localhost:3000";
-    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+    //const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "https://chuditourandtravel.herokuapp.com";
     return await fetch(`${BASE_URL}/api/profile`)
         .then((res) => res.json())
         .catch((error) => {
@@ -10,8 +10,8 @@ async function getProfile() {
 }
 
 async function updateProfile(newProfile) {
-    const BASE_URL = "http://localhost:3000";
-    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+    //const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "https://chuditourandtravel.herokuapp.com";
     return await fetch(`${BASE_URL}/api/profile`, {
         method: "PUT",
         headers: {
