@@ -51,25 +51,6 @@ db.once("open", function () {
     app.use(express.static("public"));
     app.use(cookieParser()); //so that cookies are automatically generated for every request.
 
-    /* app.get("/login", (req, res) => {
-    res.render("login");
-}); */
-    app.get("/register", (req, res) => {
-        res.render("register");
-    });
-
-    app.get("/chatbox", (req, res) => {
-        res.render("chatbox");
-    });
-
-    app.get("/chatbox2", (req, res) => {
-        res.render("chatbox2");
-    });
-
-    app.get("/login", (req, res) => {
-        res.render("login2");
-    });
-
     // api routes
     app.use("/users", usersRouter);
     app.use("/emails", emailsRouter);

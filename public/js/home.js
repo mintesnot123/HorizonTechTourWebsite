@@ -12,8 +12,56 @@ let signInForm = document.querySelector(".sign-in-form");
 let signInBtn = document.getElementById("btn-signin");
 var signinResult = document.getElementById("signin-result");
 
+let passwordResetForm = document.querySelector(".password-reset-form");
+let passwordResetBtn = document.getElementById("btn-password-reset");
+var passwordResetResult = document.getElementById("password-reset-result");
+var passwordResetResultSuccess = document.getElementById(
+    "password-reset-result-success"
+);
+
+var loginModalOpenLink = document.getElementById("login-modal-open-link");
+
 let registerForm = document.querySelector(".register-form");
 var signupResult = document.getElementById("signup-result");
+
+var signupLink = document.getElementById("signup-link");
+var signupLink2 = document.getElementById("signup-link2");
+var signupLink3 = document.getElementById("signup-link3");
+var signinLink = document.getElementById("signin-link");
+var passwordResetLink = document.getElementById("password-reset-link");
+
+var signinContent = document.getElementById("signin-content");
+var signupContent = document.getElementById("signup-content");
+var passwordResetContent = document.getElementById("password-reset-content");
+
+const displaySignupModal = function (e) {
+    resetResultTexts();
+    passwordResetContent.style.display = "none";
+    signinContent.style.display = "none";
+    signupContent.style.display = "block";
+};
+
+signupLink.addEventListener("click", displaySignupModal);
+signupLink2.addEventListener("click", displaySignupModal);
+signupLink3.addEventListener("click", displaySignupModal);
+signinLink.addEventListener("click", function (e) {
+    resetResultTexts();
+    passwordResetContent.style.display = "none";
+    signupContent.style.display = "none";
+    signinContent.style.display = "block";
+});
+passwordResetLink.addEventListener("click", function (e) {
+    resetResultTexts();
+    signupContent.style.display = "none";
+    signinContent.style.display = "none";
+    passwordResetContent.style.display = "block";
+});
+loginModalOpenLink.addEventListener("click", function (e) {
+    resetResultTexts();
+    passwordResetContent.style.display = "none";
+    signupContent.style.display = "none";
+    signinContent.style.display = "block";
+});
 
 emailRequestForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -294,6 +342,89 @@ registerForm.addEventListener("submit", async function (e) {
             "danger"
         );
         $("#btn-signup").html("Register").attr("disabled", false);
+    }
+});
+
+const resetResultTexts = function () {
+    passwordResetResult.style.display = "none";
+    passwordResetResultSuccess.style.display = "none";
+    $("#password-reset-result").html("");
+    $("#password-reset-result-success").html("");
+    signupResult.style.display = "none";
+    $("#signup-result").html("");
+    signinResult.style.display = "none";
+    $("#signin-result").html("");
+};
+
+passwordResetForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    passwordResetResult.style.display = "none";
+    passwordResetResultSuccess.style.display = "none";
+    $("#password-reset-result").html("");
+    $("#password-reset-result-success").html("");
+    $("#btn-password-reset")
+        .html(
+            '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Sending reset email...'
+        )
+        .attr("disabled", true);
+
+    let email = document.getElementById("password-reset-email").value;
+    let newPassword = document.getElementById("password-reset-password").value;
+
+    try {
+        const response = await fetch(`${BASE_URL}/users/requestResetPassword`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, newPassword }),
+        });
+        const result = await response.json();
+        console.log("reset password result: ", result);
+
+        if (result.error) {
+            passwordResetResultSuccess.style.display = "none";
+            $("#password-reset-result-success").html("");
+
+            passwordResetResult.style.display = "block";
+            $("#password-reset-result").html(result.message);
+            showToast(result.message, "danger");
+            $("#btn-password-reset")
+                .html("Reset Password")
+                .attr("disabled", false);
+            if (result.redirectURL) {
+                window.location.href = result.redirectURL;
+            }
+        } else {
+            passwordResetResult.style.display = "none";
+            $("#password-reset-result").html("");
+
+            passwordResetResultSuccess.style.display = "block";
+            $("#password-reset-result-success").html(result.message);
+
+            showToast("Reset email sent succesfully!", "success");
+            $("#btn-password-reset")
+                .html("Reset Password")
+                .attr("disabled", false);
+            if (result.redirectURL) {
+                window.location.href = result.redirectURL;
+            }
+        }
+    } catch (error) {
+        console.log("error", error);
+        passwordResetResultSuccess.style.display = "none";
+        $("#password-reset-result-success").html("");
+
+        passwordResetResult.style.display = "block";
+        $("#password-reset-result").html(
+            error.message ? error.message : "something went wrong"
+        );
+        showToast(
+            error.message ? error.message : "something went wrong",
+            "danger"
+        );
+        $("#btn-password-reset").html("Reset Password").attr("disabled", false);
     }
 });
 

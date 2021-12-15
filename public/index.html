@@ -155,7 +155,7 @@
                 <a class="nav-link page-scroll" href="#contact">CONTACT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link page-scroll" data-toggle="modal" data-target="#loginModal">LOGIN</a>
+                <a class="nav-link page-scroll" id="login-modal-open-link" data-toggle="modal" data-target="#loginModal">LOGIN</a>
             </li>
         </ul>
         <span class="nav-item social-icons">
@@ -1437,210 +1437,289 @@
 
   
 <div
-class="modal fade"
-id="loginModal"
-tabindex="-1"
-role="dialog"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
 >
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-header border-bottom-0">
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="form-title text-center">
-        <h4>Login</h4>
-      </div>
-      <div class="d-flex flex-column text-center">
-        <form role="form" class="sign-in-form" autocomplete="off">
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-control"
-              id="sign-in-email"
-              placeholder="Your email address..."
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              class="form-control"
-              id="sign-in-password"
-              placeholder="Your password..."
-            />
-          </div>
-          <div class="form-group text-center">
-            <small
-                id="signin-result"
-                class="text-danger"
-                style="display: none"
-            >
-                signin error
-            </small>
-          </div>
-          <button id="btn-signin" class="btn btn-info btn-block btn-round">
-            Login
-          </button>
-        </form>
-
-        <div class="text-center text-muted delimiter">
-          or use a social network
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="signin-content">
+        <div class="modal-header border-bottom-0">
+        <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
         </div>
-        <div class="d-flex justify-content-center social-buttons">
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Twitter"
-          >
-            <i class="fab fa-twitter"></i>
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Facebook"
-          >
-            <i class="fab fa-facebook"></i>
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Linkedin"
-          >
-            <i class="fab fa-linkedin"></i>
-          </button>
+        <div class="modal-body">
+        <div class="form-title text-center">
+            <h4>Login</h4>
         </div>
-      </div>
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <div class="signup-section">
-        Not a member yet? <a data-toggle="modal" data-dismiss="modal" data-target="#SignupModal" class="text-info"> Sign Up</a>.
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div
-class="modal fade"
-id="SignupModal"
-tabindex="-1"
-role="dialog"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
->
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-header border-bottom-0">
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="form-title text-center">
-        <h4>Sign Up</h4>
-      </div>
-      <div class="d-flex flex-column text-center">
-        <form role="form" autocomplete="off" class="register-form">
+        <div class="d-flex flex-column text-center">
+            <form role="form" class="sign-in-form" autocomplete="off">
             <div class="form-group">
                 <input
-                  type="text"
-                  class="form-control"
-                  id="register-name"
-                  placeholder="Your full name..."
+                type="email"
+                class="form-control"
+                id="sign-in-email"
+                placeholder="Your email address..."
                 />
-              </div>
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-control"
-              id="register-email"
-              placeholder="Your email address..."
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              class="form-control"
-              id="register-password"
-              placeholder="Your password..."
-            />
-          </div>
-          <div class="form-group text-center">
-            <small
-                id="signup-result"
-                class="text-danger"
-                style="display: none"
+            </div>
+            <div class="form-group">
+                <input
+                type="password"
+                class="form-control"
+                id="sign-in-password"
+                placeholder="Your password..."
+                />
+            </div>
+            <div class="form-group text-center">
+                <small
+                    id="signin-result"
+                    class="text-danger"
+                    style="display: none"
+                >
+                    signin error
+                </small>
+            </div>
+            <button id="btn-signin" class="btn btn-info btn-block btn-round">
+                Login
+            </button>
+            </form>
+            <div class="row mt-2">
+                <div class="col-6 text-left">
+                    <a class="text-info" id="signup-link2"><small>Create new account</small></a>
+                </div>
+                <div class="col-6 text-right">
+                <a class="text-info" id="password-reset-link"><small>Forgot password?</small></a>
+                </div>            
+            </div>
+            <div class="text-center text-muted delimiter">
+            or use a social network
+            </div>
+            <div class="d-flex justify-content-center social-buttons">
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Twitter"
             >
-                signup error
-            </small>
+                <i class="fab fa-twitter"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Facebook"
+            >
+                <i class="fab fa-facebook"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Linkedin"
+            >
+                <i class="fab fa-linkedin"></i>
+            </button>
+            </div>
         </div>
-          <button id="btn-signup" type="submit" class="btn btn-info btn-block btn-round">
-            Sign up
-          </button>
-        </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <div class="signup-section">
+                Not a member yet? <a id="signup-link" class="text-info"> Sign Up</a>.
+            </div>
+        <!-- <div class="signup-section">
+            Not a member yet? <a data-toggle="modal" data-dismiss="modal" data-target="#SignupModal" class="text-info"> Sign Up</a>.
+        </div> -->
+        </div>
+    </div>  
+    <div class="modal-content" style="display: none;" id="signup-content">
+        <div class="modal-header border-bottom-0">
+        <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <div class="form-title text-center">
+            <h4>Sign Up</h4>
+        </div>
+        <div class="d-flex flex-column text-center">
+            <form role="form" autocomplete="off" class="register-form">
+                <div class="form-group">
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="register-name"
+                    placeholder="Your full name..."
+                    />
+                </div>
+            <div class="form-group">
+                <input
+                type="email"
+                class="form-control"
+                id="register-email"
+                placeholder="Your email address..."
+                />
+            </div>
+            <div class="form-group">
+                <input
+                type="password"
+                class="form-control"
+                id="register-password"
+                placeholder="Your password..."
+                />
+            </div>
+            <div class="form-group text-center">
+                <small
+                    id="signup-result"
+                    class="text-danger"
+                    style="display: none"
+                >
+                    signup error
+                </small>
+            </div>
+            <button id="btn-signup" type="submit" class="btn btn-info btn-block btn-round">
+                Sign up
+            </button>
+            </form>
 
-        <div class="text-center text-muted delimiter">
-          or use a social network
+            <div class="text-center text-muted delimiter">
+            or use a social network
+            </div>
+            <div class="d-flex justify-content-center social-buttons">
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Twitter"
+            >
+                <i class="fab fa-twitter"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Facebook"
+            >
+                <i class="fab fa-facebook"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-secondary btn-round"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Linkedin"
+            >
+                <i class="fab fa-linkedin"></i>
+            </button>
+            </div>
         </div>
-        <div class="d-flex justify-content-center social-buttons">
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Twitter"
-          >
-            <i class="fab fa-twitter"></i>
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Facebook"
-          >
-            <i class="fab fa-facebook"></i>
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary btn-round"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Linkedin"
-          >
-            <i class="fab fa-linkedin"></i>
-          </button>
         </div>
-      </div>
+        <div class="modal-footer d-flex justify-content-center">        
+            <div class="signup-section">
+                I have already registored? <a id="signin-link" class="text-info"> Login</a>.
+            </div>
+        <!-- <div class="signup-section">
+            I have already registored? <a data-toggle="modal" data-dismiss="modal" data-target="#loginModal" class="text-info"> Login</a>.
+        </div> -->
+        </div>
     </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <div class="signup-section">
-        I have already registored? <a data-toggle="modal" data-dismiss="modal" data-target="#loginModal" class="text-info"> Login</a>.
-      </div>
+    <div class="modal-content" style="display: none;" id="password-reset-content">
+        <div class="modal-header border-bottom-0">
+            <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            >
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="text-center">
+                        <h3><i class="fa fa-lock fa-4x"></i></h3>
+                        <h2 class="text-center">Forgot Password?</h2>
+                        <p>You can reset your password here.</p>
+                        <div class="panel-body">
+                            <form role="form" autocomplete="off" class="form password-reset-form">
+                                <!-- <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                        <input id="password-reset-email" name="email" placeholder="email address" class="form-control"  type="email">
+                                    </div>
+                                </div> -->
+                                <div class="form-group">
+                                    <input
+                                    type="email"
+                                    class="form-control"
+                                    id="password-reset-email"
+                                    placeholder="Your email address..."
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password-reset-password"
+                                    placeholder="New password..."
+                                    />
+                                </div>
+                                <div class="form-group text-center">
+                                    <small
+                                        id="password-reset-result"
+                                        class="text-danger"
+                                        style="display: none"
+                                    >
+                                        reset password error
+                                    </small>
+                                    <small
+                                        id="password-reset-result-success"
+                                        class="text-success"
+                                        style="display: none"
+                                    >
+                                        reset password success
+                                    </small>
+                                </div>
+                                <button id="btn-password-reset" type="submit" class="btn btn-info btn-block btn-round">
+                                    Reset Password
+                                </button>
+                                <!-- <div class="form-group">
+                                <input name="recover-submit" id="btn-password-reset" class="btn btn-lg btn-info btn-block" value="Reset Password" type="submit">
+                                </div>  -->               
+                                <input type="hidden" class="hide" name="token" id="token" value=""> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div class="modal-footer d-flex justify-content-center">
+            <div class="signup-section">
+                Not a member yet? <a id="signup-link3" class="text-info"> Sign Up</a>.
+            </div>      
+        </div>
     </div>
   </div>
 </div>
-</div>
+
 
 <!-- <div id="addEmailToast" class="toast bg-primary text-white fade show">
     <div class="toast-header bg-primary text-white">
