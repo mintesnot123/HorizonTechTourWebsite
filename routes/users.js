@@ -12,8 +12,8 @@ const jwt = require("jsonwebtoken");
 let constants = require("../constants/envConstants");
 let emailTempletes = require("../constants/emailTempletes");
 
-const BASE_URL = "http://localhost:3000";
-//const BASE_URL = "https://chuditourandtravel.herokuapp.com/";
+//const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://chuditourandtravel.herokuapp.com/";
 
 var transporter = nodemailer.createTransport({
     service: "gmail",

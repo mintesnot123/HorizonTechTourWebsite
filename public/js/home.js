@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:3000";
-//const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+//const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 let emailRequestForm = document.querySelector(".email-request-form");
 var element = document.getElementById("addEmailToast");
@@ -127,6 +127,88 @@ signInForm.addEventListener("submit", async function (e) {
     }
 });
 
+callMeForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    callMeResult.style.display = "none";
+    $("#call-me-result").html("");
+    $("#btn-call-me")
+        .html(
+            '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Submiting...'
+        )
+        .attr("disabled", true);
+
+    let name = document.querySelector("#lname").value;
+    let phoneNumber = document.querySelector("#lphone").value;
+    let email = document.querySelector("#lemail").value;
+    let interest = document.querySelector("#lselect").value;
+    console.log("interest", interest);
+    if (phoneNumber && name && email) {
+        const emailRegexp =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        if (emailRegexp.test(email)) {
+            try {
+                const response = await fetch(`${BASE_URL}/callback-requests`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        email: email,
+                        interest: interest,
+                    }),
+                });
+                const result = await response.json();
+                console.log("add call me result: ", result);
+
+                if (result.error) {
+                    callMeResult.style.display = "block";
+                    $("#call-me-result").html(result.message);
+                    showToast(result.message, "danger");
+                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
+                    if (result.redirectURL) {
+                        window.location.href = result.redirectURL;
+                    }
+                } else {
+                    showToast(
+                        "Call me request submited succesfully!",
+                        "success"
+                    );
+                    document.querySelector("#lname").value = "";
+                    document.querySelector("#lphone").value = "";
+                    document.querySelector("#lemail").value = "";
+                    document.querySelector("#lselect").value = "";
+                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
+                    if (result.redirectURL) {
+                        window.location.href = result.redirectURL;
+                    }
+                }
+            } catch (error) {
+                callMeResult.style.display = "block";
+                $("#call-me-result").html(
+                    error.message ? error.message : "something went wrong"
+                );
+                showToast(
+                    error.message ? error.message : "something went wrong",
+                    "danger"
+                );
+                $("#btn-call-me").html("CALL ME").attr("disabled", false);
+            }
+        } else {
+            showToast("Enter valid email!", "warning");
+            callMeResult.style.display = "block";
+            $("#call-me-result").html("Enter valid email!");
+            $("#btn-call-me").html("CALL ME").attr("disabled", false);
+        }
+    } else {
+        showToast("Phone, Email and name are required!", "warning");
+        callMeResult.style.display = "block";
+        $("#call-me-result").html("Phone, Email and name are required!");
+        $("#btn-call-me").html("CALL ME").attr("disabled", false);
+    }
+});
+
 emailRequestForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     registorEmailResult.style.display = "none";
@@ -208,88 +290,6 @@ emailRequestForm.addEventListener("submit", async function (e) {
         registorEmailResult.style.display = "block";
         $("#registor-email-result").html("Email and name are required!");
         $("#btn-registor-email").html("Submit Message").attr("disabled", false);
-    }
-});
-
-callMeForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    callMeResult.style.display = "none";
-    $("#call-me-result").html("");
-    $("#btn-call-me")
-        .html(
-            '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Submiting...'
-        )
-        .attr("disabled", true);
-
-    let name = document.querySelector("#lname").value;
-    let phoneNumber = document.querySelector("#lphone").value;
-    let email = document.querySelector("#lemail").value;
-    let interest = document.querySelector("#lselect").value;
-    console.log("interest", interest);
-    if (phoneNumber && name && email) {
-        const emailRegexp =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-        if (emailRegexp.test(email)) {
-            try {
-                const response = await fetch(`${BASE_URL}/callback-requests`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        email: email,
-                        interest: interest,
-                    }),
-                });
-                const result = await response.json();
-                console.log("add call me result: ", result);
-
-                if (result.error) {
-                    callMeResult.style.display = "block";
-                    $("#call-me-result").html(result.message);
-                    showToast(result.message, "danger");
-                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
-                    if (result.redirectURL) {
-                        window.location.href = result.redirectURL;
-                    }
-                } else {
-                    showToast(
-                        "Call me request submited succesfully!",
-                        "success"
-                    );
-                    document.querySelector("#lname").value = "";
-                    document.querySelector("#lphone").value = "";
-                    document.querySelector("#lemail").value = "";
-                    document.querySelector("#lselect").value = "";
-                    $("#btn-call-me").html("CALL ME").attr("disabled", false);
-                    if (result.redirectURL) {
-                        window.location.href = result.redirectURL;
-                    }
-                }
-            } catch (error) {
-                callMeResult.style.display = "block";
-                $("#call-me-result").html(
-                    error.message ? error.message : "something went wrong"
-                );
-                showToast(
-                    error.message ? error.message : "something went wrong",
-                    "danger"
-                );
-                $("#btn-call-me").html("CALL ME").attr("disabled", false);
-            }
-        } else {
-            showToast("Enter valid email!", "warning");
-            callMeResult.style.display = "block";
-            $("#call-me-result").html("Enter valid email!");
-            $("#btn-call-me").html("CALL ME").attr("disabled", false);
-        }
-    } else {
-        showToast("Phone, Email and name are required!", "warning");
-        callMeResult.style.display = "block";
-        $("#call-me-result").html("Phone, Email and name are required!");
-        $("#btn-call-me").html("CALL ME").attr("disabled", false);
     }
 });
 

@@ -2370,7 +2370,7 @@ const miscConstants = {
                     <tr>
                       <td class="content-cell">
                         <h1>${`Hey ${name},`}</h1>                        
-                        <p>I’m Dina Gezahegn, the CEO of <strong>Chudi tour and travel</strong> and I’d like to personally thank you for sending us a message. We established <strong>Chudi tour and travel</strong> in order to provide the right tour and travel services and to help our tourists to visit the most beautiful places in the Ethiopia, Land Of Origins.<br/><br/>I’d love to hear what you think of <strong>Chudi tour and travel</strong> and if there is anything we can improve.<br/><br/> If you have any questions, please reply to this email. we are always happy to help!
+                        <p>I’m Dina Gezahegn, the CEO of <strong>Chudi tour and travel</strong> and I’d like to personally thank you for sending us a message. We established <strong>Chudi tour and travel</strong> in order to provide the right tour and travel services and to help our tourists to visit the most beautiful places in the Ethiopia, Land Of Origins.<br/><br/> If you have any questions, please reply to this email. we are always happy to help!
                         </p>
                         <!-- Action -->                       
                         <p>Thanks,<br>Dina Gezahegn</p>                        
