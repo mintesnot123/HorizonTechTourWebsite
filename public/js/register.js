@@ -1,7 +1,7 @@
 let registerForm = document.querySelector(".register-form");
 var signupResult = document.getElementById("signup-result");
-//const BASE_URL = "http://localhost:3000";
-const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+const BASE_URL = "http://localhost:3000";
+//const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
 registerForm.addEventListener("submit", async function (e) {
     e.preventDefault();

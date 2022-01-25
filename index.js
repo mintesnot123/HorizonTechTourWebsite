@@ -10,6 +10,8 @@ let emailsRouter = require("./routes/emails");
 let usersRouter = require("./routes/users");
 let callbackRouter = require("./routes/callback-requests");
 let profileRouter = require("./routes/profile");
+let placeRouter = require("./routes/places");
+let tourPackagesRouter = require("./routes/tourPackages");
 
 app.set("view engine", "ejs");
 
@@ -56,6 +58,8 @@ db.once("open", function () {
     app.use("/emails", emailsRouter);
     app.use("/callback-requests", callbackRouter);
     app.use("/api/profile", profileRouter);
+    app.use("/api/place", placeRouter);
+    app.use("/api/tour-package", tourPackagesRouter);
 
     // page routes
     app.get("/admin", (req, res) => {
@@ -101,6 +105,15 @@ db.once("open", function () {
             res.redirect("/"); //redirecting sign-in page!
         }
     });
+    app.get("/login", (req, res) => {
+        let token = req.cookies["auth_token"];
+        if (token && auth.checkToken(token, "USER").state) {
+            //token should not be empty!
+            res.render("places");
+        } else {
+            res.redirect("/"); //redirecting sign-in page!
+        }
+    });
 
     app.get("/submited_messages", (req, res) => {
         let token = req.cookies["auth_token"];
@@ -121,8 +134,14 @@ db.once("open", function () {
         }
     });
 
-    app.get("/terms-conditions", (req, res) => {
-        res.render("terms-conditions");
+    app.get("/about", (req, res) => {
+        res.render("about-page");
+    });
+    app.get("/contact", (req, res) => {
+        res.render("contact-page");
+    });
+    app.get("/places", (req, res) => {
+        res.render("places-page");
     });
 
     /* app.use("/posts", postsRouter);

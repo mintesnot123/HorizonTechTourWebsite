@@ -1,6 +1,6 @@
 async function getEmails({ page, size }) {
-    //const BASE_URL = "http://localhost:3000";
-    const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+    const BASE_URL = "http://localhost:3000";
+    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
     return await fetch(`${BASE_URL}/emails?page=${page}&size=${size}`)
         .then((res) => res.json())
         .catch((error) => {
@@ -14,8 +14,8 @@ let emailsBlock = document.querySelector("#v-pills-mails");
 
 //event delegation
 emailsBlock.addEventListener("click", function (e) {
-    //const BASE_URL = "http://localhost:3000";
-    const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+    const BASE_URL = "http://localhost:3000";
+    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
     if (e.target.classList.contains("btn-remove")) {
         let id = e.target.parentNode.parentNode.querySelector(".id").value; //request.id
         fetch(`${BASE_URL}/emails/` + id, {

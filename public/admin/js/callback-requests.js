@@ -1,6 +1,6 @@
 async function getCallbackRequests({ page, size }) {
-    //const BASE_URL = "http://localhost:3000";
-    const BASE_URL = "https://chuditourandtravel.herokuapp.com";
+    const BASE_URL = "http://localhost:3000";
+    //const BASE_URL = "https://chuditourandtravel.herokuapp.com";
 
     return await fetch(
         `${BASE_URL}/callback-requests?page=${page}&size=${size}`

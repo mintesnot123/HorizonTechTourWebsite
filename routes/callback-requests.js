@@ -4,13 +4,24 @@ const express = require("express");
 const router = express.Router();
 const { checkAuthAdmin, checkAuthUser } = require("../middleware/auth");
 const { success, error, validation } = require("../helpers/responseApi");
+const {
+    callMeMessageToAdmin,
+    contactUsMessage,
+} = require("../constants/emailTempletes");
 
 var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "yismawmintesnot@gmail.com",
-        pass: "abc*#123minot",
+        pass: "nzuusdudhudqxxuv",
     },
+});
+transporter.verify((err, success) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully signed into Gmail account");
+    }
 });
 const getPagination = (page, size) => {
     const limit = size ? +size : 3;
@@ -98,28 +109,57 @@ router.post("/", async (req, res) => {
                     interest: reqBody.interest,
                 });
                 const callbackRequest = await newCallbackRequest.save();
-                res.status(200).json(
-                    success(
-                        "OK",
-                        { callbackRequest: callbackRequest },
-                        res.statusCode
-                    )
-                );
-                if (reqBody.email) {
-                    var mailOptions = {
-                        from: "marcotgebeya@gmail.com",
-                        to: reqBody.email,
-                        subject: `Hello ${reqBody.name} this is Sending Email using Node.js`,
-                        text: "That was easy!",
-                    };
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log("Email sent: " + info.response);
+                var mail = {
+                    from: "yismawmintesnot@gmail.com",
+                    to: "yismawmintesnot@gmail.com",
+                    subject: `Call me from ${reqBody.name}`,
+                    html: callMeMessageToAdmin(
+                        reqBody.name,
+                        reqBody.phoneNumber,
+                        reqBody.email,
+                        reqBody.interest
+                    ),
+                };
+                transporter.sendMail(mail, (err, data) => {
+                    if (err) {
+                        res.status(500).json(
+                            error(
+                                err.message
+                                    ? err.message
+                                    : "Something went wrong.",
+                                res.statusCode
+                            )
+                        );
+                    } else {
+                        res.status(200).json(
+                            success(
+                                "OK",
+                                { callbackRequest: callbackRequest },
+                                res.statusCode
+                            )
+                        );
+                        if (reqBody.email) {
+                            var mailOptions = {
+                                from: "yismawmintesnot@gmail.com",
+                                to: reqBody.email,
+                                subject: `Hello ${reqBody.name} this is welcome Email from CHUDI TOUR AND TRAVEL`,
+                                html: contactUsMessage(reqBody.name),
+                            };
+                            transporter.sendMail(
+                                mailOptions,
+                                function (error, info) {
+                                    if (error) {
+                                        console.log(error);
+                                    } else {
+                                        console.log(
+                                            "Email sent: " + info.response
+                                        );
+                                    }
+                                }
+                            );
                         }
-                    });
-                }
+                    }
+                });
             } catch (err) {
                 res.status(500).json(
                     error(
@@ -145,23 +185,5 @@ router.post("/", async (req, res) => {
         }
     }
 });
-
-//Creating requests in DB
-/* router.post("/", async (req, res) => {
-    let reqBody = req.body;
-    let newRequest = new CallbackRequest({
-        id: uniqid(),
-        phoneNumber: reqBody.phoneNumber,
-        date: new Date(),
-    });
-    await newRequest.save();
-    res.send("Accepted!");
-}); */
-
-//Deleting request
-/* router.delete("/:id", authMiddleware, async (req, res) => {
-    await CallbackRequest.deleteOne({ id: req.params.id });
-    res.send("Deleted!");
-}); */
 
 module.exports = router;

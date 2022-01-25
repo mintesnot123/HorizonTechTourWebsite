@@ -4,13 +4,24 @@ const express = require("express");
 const router = express.Router();
 const { checkAuthAdmin, checkAuthUser } = require("../middleware/auth");
 const { success, error, validation } = require("../helpers/responseApi");
+const {
+    contactUsMessageToAdmin,
+    contactUsMessage,
+} = require("../constants/emailTempletes");
 
 var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "yismawmintesnot@gmail.com",
-        pass: "twoanmsseitynim",
+        pass: "nzuusdudhudqxxuv",
     },
+});
+transporter.verify((err, success) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully signed into Gmail account");
+    }
 });
 
 const getPagination = (page, size) => {
@@ -100,24 +111,43 @@ router.post("/", async (req, res) => {
                     from: "yismawmintesnot@gmail.com",
                     to: reqBody.email,
                     subject: `Hello ${reqBody.name} this is welcome Email from CHUDI TOUR AND TRAVEL`,
-                    text: `Hey ${reqBody.name},
-
-                    I’m Dina Gezahegn, the CEO of CHUDI TOUR AND TRAVEL and I’d like to personally thank you for signing up to our service.
-                    
-                    We established CHUDI TOUR AND TRAVEL in order to provide the right tour and travel services and to help our tourists to visit the most beautiful places in the Ethiopia, Land Of Origins.
-                    
-                    I’d love to hear what you think of CHUDI TOUR AND TRAVEL and if there is anything we can improve. If you have any questions, please reply to this email. I’m always happy to help!
-                    
-                    Dina Gezahegn`,
+                    html: contactUsMessage(reqBody.name),
                 };
-                res.status(200).json(
-                    success("OK", { email: email }, res.statusCode)
-                );
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error);
+                var mail = {
+                    from: "yismawmintesnot@gmail.com",
+                    to: "yismawmintesnot@gmail.com",
+                    subject: `Contact Us Message from ${reqBody.name}`,
+                    html: contactUsMessageToAdmin(
+                        reqBody.name,
+                        reqBody.email,
+                        reqBody.text
+                    ),
+                };
+
+                transporter.sendMail(mail, (err, data) => {
+                    if (err) {
+                        res.status(500).json(
+                            error(
+                                err.message
+                                    ? err.message
+                                    : "Something went wrong.",
+                                res.statusCode
+                            )
+                        );
                     } else {
-                        console.log("Email sent: " + info.response);
+                        res.status(200).json(
+                            success("OK", { email: email }, res.statusCode)
+                        );
+                        transporter.sendMail(
+                            mailOptions,
+                            function (error, info) {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    console.log("Email sent: " + info.response);
+                                }
+                            }
+                        );
                     }
                 });
             } catch (err) {
